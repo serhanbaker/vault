@@ -35,7 +35,7 @@ In order to understand this abstraction, we could write a code like this:
 ---
 ###The whole Node class:
 
-```
+```java
 public class Node {
     int data;
     Node next;
