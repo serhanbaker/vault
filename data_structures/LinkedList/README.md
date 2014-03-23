@@ -29,10 +29,30 @@ In order to understand this abstraction, we could write a code like this:
         p = p.next;
     }
     return head;
-}
+ }
 ```
 
 ---
+
+###Reversing a List
+* Iterate over the list
+* Add the item to the end of the list at every iteration
+
+```java
+  public static Node reverse(Node head) {
+      Node list = null;
+      while (head != null) {
+          Node next = head.next;
+          head.next = list;
+          list = head;
+          head = next;
+      }
+      return list;
+  }
+```
+
+---
+
 ###The whole Node class:
 
 ```java
