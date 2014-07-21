@@ -1,10 +1,14 @@
+/**
+ * @serhanbaker, 21.Jul.2014.
+ */
 import java.util.NoSuchElementException;
 
-public class HashTable {
-    static final int MAX = 50;
-    static Node[] arr = new Node[MAX];
+public class HashTable<K, V> {
+    private static final int MAX = 50;
+    private static Node[] arr = new Node[MAX];
 
-    private static int stringHash(String str, int modulus) {
+    private int stringHash(K key, int modulus) {
+        String str = String.valueOf(key);
         int kMult = 997;
         int val = 0;
         for (int i = 0; i < str.length(); i++) {
@@ -14,20 +18,20 @@ public class HashTable {
         return val;
     }
 
-    public void put(String key, int value) {
+    public void put(K key, V value) {
         int hashCode = stringHash(key, MAX);
         Node p = new Node(key, value);
         p.next = arr[hashCode];
         arr[hashCode] = p;
     }
 
-    public void modify(String key, int value) {
+    public void modify(K key, V value) {
         int hashCode = stringHash(key, MAX);
         Node p = arr[hashCode];
         p.val = value;
     }
 
-    public void remove(String key) {
+    public void remove(K key) {
         int hashCode = stringHash(key, MAX);
         System.out.println("hashCode = " + hashCode);
         while (arr[hashCode] != null) {
@@ -49,19 +53,19 @@ public class HashTable {
         }
     }
 
-    public boolean contains(String key) {
-        return get(key) > Integer.MIN_VALUE;
+    public boolean contains(K key) {
+        return get(key) != null;
     }
 
-    public int get(String key) {
+    public V get(K key) {
         int hashCode = stringHash(key, MAX);
         Node tmp = arr[hashCode];
         while (tmp != null) {
             if (tmp.key == key) {
-                return tmp.val;
+                return (V) tmp.val;
             }
             tmp = tmp.next;
         }
-        return Integer.MIN_VALUE;
+        return null;
     }
 }
